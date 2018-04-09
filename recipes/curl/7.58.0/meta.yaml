@@ -11,11 +11,11 @@ about:
   summary: Command line tool and library for transferring data with URLs.
 
 build:
-  number: 0
+  number: 1
 
 source:
   - url: http://curl.haxx.se/download/curl-{{ version }}.tar.bz2
-    fn: 
+    fn:
     sha256: {{ sha256 }}
 
 requirements:
@@ -32,3 +32,5 @@ test:
     - test -f ${PREFIX}/include/curl/curl.h
     - test -f ${PREFIX}/lib/libcurl.a
     - test -h ${PREFIX}/lib/libcurl.so
+    - test -n "$(curl --version | grep SSL)"
+    - test -n "$(curl --version | grep TLS)"
