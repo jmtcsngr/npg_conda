@@ -1,0 +1,42 @@
+{% set version = "1.1.1" %}
+{% set libstatgen_version = "1.0.13" %}
+
+package:
+  name: verifybamid
+  version: "{{ version }}"
+
+about:
+  home: http://genome.sph.umich.edu
+  license: Other
+  summary: "Verify identity and purity of sequence data."
+
+build:
+  number: 1
+
+source:
+  - git_url: https://github.com/statgen/verifyBamID.git
+    git_rev: v{{ version }}
+    folder: verifybamid
+    patches:
+      - verifybamid.patch
+  - git_url: https://github.com/statgen/libStatGen.git
+    git_rev: v{{ libstatgen_version }}
+    folder: libStatGen
+    patches:
+      - libStatGen.patch
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - make
+  host:
+    - libssl-dev
+    - libz-dev
+  run:
+    - libssl
+    - libz
+
+test:
+  commands:
+    - test -x ${PREFIX}/bin/verifyBamID
