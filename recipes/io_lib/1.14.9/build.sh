@@ -8,8 +8,7 @@ n="$CPU_COUNT"
   --prefix="$PREFIX" \
   --with-zlib="$PREFIX" \
   --with-libcurl="$PREFIX" \
-  CPPFLAGS="-I$PREFIX/include" \
-  LDFLAGS="-Wl,-rpath-link,$PREFIX/lib -Wl,--disable-new-dtags -L$PREFIX/lib"
+  CPPFLAGS="-I$PREFIX/include"
 
-make -j "$n"
+make -j "$n" LDFLAGS="-Wl,-rpath-link,$PREFIX/lib -Wl,--disable-new-dtags -L$PREFIX/lib"
 make install
